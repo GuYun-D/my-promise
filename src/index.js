@@ -1,4 +1,4 @@
-const { MyPromisse } = require("./lib/promisse");
+const { MyPromisse } = require("./lib/index");
 
 const promise = new MyPromisse((resolve, reject) => {
   //   resolve(1);
