@@ -91,6 +91,13 @@ class _MyPromisse {
 
     return myPromise2;
   }
+
+  /**
+   * 使用then模拟catch方法
+   */
+  catch(errorCB) {
+    this.then(null, errorCB);
+  }
 }
 
 module.exports = {
