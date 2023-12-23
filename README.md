@@ -44,3 +44,33 @@ promise1
     }
   );
 ```
+
+## 构造函数中还有 new Promise 时间
+
+```js
+const promise = new MyPromisse((resolve, reject) => {
+  //   resolve(1);
+  //   reject("ERROR");
+  //   throw new Error("你妹的");
+  // setTimeout(() => {
+  //   resolve("success");
+  // }, 2000);
+
+  resolve(
+    new MyPromisse((resolve, reject) => {
+      setTimeout(() => {
+        resolve("来了小老弟");
+      }, 2000);
+    })
+  );
+});
+```
+
+只需要添加下面的代码即可
+
+```js
+if (value instanceof _MyPromisse) {
+  value.then(resolve, reject);
+  return;
+}
+```

@@ -11,6 +11,11 @@ class _MyPromisse {
     this.onRejectedCBs = [];
 
     const resolve = (value) => {
+      if (value instanceof _MyPromisse) {
+        value.then(resolve, reject);
+        return;
+      }
+
       if (this.status === PENDING) {
         this.value = value;
         this.status = FULLFILLED;
