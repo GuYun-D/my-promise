@@ -1,4 +1,5 @@
 const { PENDING, FULLFILLED, REJECT } = require("./_status");
+const { _resolvePromise } = require("./_resolvePromise");
 
 class _MyPromisse {
   constructor(executor) {
@@ -33,28 +34,36 @@ class _MyPromisse {
   then(onFullFilled, onRejected) {
     const myPromise2 = new _MyPromisse((resolve, reject) => {
       if (this.status === FULLFILLED) {
-        try {
-          const x = onFullFilled(this.value);
-          resolvePromise(myPromise2, x, resolve, reject);
-        } catch (error) {
-          reject(error);
-        }
+        /**
+         * 将这段代码转换成异步执行的，这是Promise A+的规范的内容
+         * 这样我们也可以是确保promise2的状态
+         */
+        setTimeout(() => {
+          try {
+            const x = onFullFilled(this.value);
+            _resolvePromise(myPromise2, x, resolve, reject);
+          } catch (error) {
+            reject(error);
+          }
+        }, 0);
       }
 
       if (this.status === REJECT) {
-        try {
-          const x = onRejected(this.reason);
-          resolvePromise(myPromise2, x, resolve, reject);
-        } catch (error) {
-          reject(error);
-        }
+        setTimeout(() => {
+          try {
+            const x = onRejected(this.reason);
+            _resolvePromise(myPromise2, x, resolve, reject);
+          } catch (error) {
+            reject(error);
+          }
+        }, 0);
       }
 
       if (this.status === PENDING) {
         this.onFullFilledCBs.push(() => {
           try {
             const x = onFullFilled(this.value);
-            resolvePromise(myPromise2, x, resolve, reject);
+            _resolvePromise(myPromise2, x, resolve, reject);
           } catch (error) {
             reject(error);
           }
@@ -63,13 +72,15 @@ class _MyPromisse {
         this.onRejectedCBs.push(() => {
           try {
             const x = onRejected(this.reason);
-            resolvePromise(myPromise2, x, resolve, reject);
+            _resolvePromise(myPromise2, x, resolve, reject);
           } catch (error) {
             reject(error);
           }
         });
       }
     });
+
+    return myPromise2;
   }
 }
 

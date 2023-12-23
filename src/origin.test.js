@@ -1,6 +1,4 @@
-const { MyPromisse } = require("./lib/index");
-
-const promise = new MyPromisse((resolve, reject) => {
+const promise = new Promise((resolve, reject) => {
   //   resolve(1);
   //   reject("ERROR");
   //   throw new Error("你妹的");
@@ -12,9 +10,7 @@ const promise = new MyPromisse((resolve, reject) => {
 const promise1 = promise.then(
   (res) => {
     console.log("成功了", res);
-    return new Promise((resolve, reject) => {
-      resolve("上一层失败了");
-    });
+    throw new Error("你妹的");
   },
   (error) => {
     console.log("失败了", error);
