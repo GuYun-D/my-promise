@@ -32,6 +32,15 @@ class _MyPromisse {
   }
 
   then(onFullFilled, onRejected) {
+    onFullFilled =
+      typeof onFullFilled === "function" ? onFullFilled : (value) => value;
+    onRejected =
+      typeof onRejected === "function"
+        ? onRejected
+        : (reason) => {
+            throw reason;
+          };
+
     const myPromise2 = new _MyPromisse((resolve, reject) => {
       if (this.status === FULLFILLED) {
         /**

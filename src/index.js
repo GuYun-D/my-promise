@@ -9,7 +9,7 @@ const promise = new MyPromisse((resolve, reject) => {
   }, 2000);
 });
 
-const promise1 = promise.then(
+const promise1 = promise.then().then().then(
   (res) => {
     console.log("成功了", res);
     return new Promise((resolve, reject) => {

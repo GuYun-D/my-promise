@@ -17,11 +17,15 @@ const promise1 = promise.then(
   }
 );
 
-promise1.then(
-  (res) => {
-    console.log("第二个then成功", res);
-  },
-  (error) => {
-    console.log("第二个then失败了", error);
-  }
-);
+promise1
+  .then()
+  .then()
+  .then()
+  .then(
+    (a) => {
+      console.log("成功了", a);
+    },
+    (b) => {
+      console.log("失败了", b);
+    }
+  );
