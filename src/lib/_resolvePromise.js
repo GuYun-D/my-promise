@@ -11,7 +11,9 @@ const _resolvePromise = (promise2, x, resolve, reject) => {
    * const testPromise = prePromise.then((res) => { return testPromise })
    */
   if (promise2 === x) {
-    return reject("Chaining cycle detected for promise #<MyPromise>");
+    return reject(
+      new TypeError("Chaining cycle detected for promise #<MyPromise>")
+    );
   }
 
   let called = false;

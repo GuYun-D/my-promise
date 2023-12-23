@@ -70,21 +70,25 @@ class _MyPromisse {
 
       if (this.status === PENDING) {
         this.onFullFilledCBs.push(() => {
-          try {
-            const x = onFullFilled(this.value);
-            _resolvePromise(myPromise2, x, resolve, reject);
-          } catch (error) {
-            reject(error);
-          }
+          setTimeout(() => {
+            try {
+              const x = onFullFilled(this.value);
+              _resolvePromise(myPromise2, x, resolve, reject);
+            } catch (error) {
+              reject(error);
+            }
+          }, 0);
         });
 
         this.onRejectedCBs.push(() => {
-          try {
-            const x = onRejected(this.reason);
-            _resolvePromise(myPromise2, x, resolve, reject);
-          } catch (error) {
-            reject(error);
-          }
+          setTimeout(() => {
+            try {
+              const x = onRejected(this.reason);
+              _resolvePromise(myPromise2, x, resolve, reject);
+            } catch (error) {
+              reject(error);
+            }
+          }, 0);
         });
       }
     });

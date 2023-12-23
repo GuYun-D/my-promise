@@ -5,6 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon ./src/index.js",
-    "test": "nodemon ./src/origin.test.js"
+    "test": "promises-aplus-tests ./src/promise.test.js"
+  },
+  "devDependencies": {
+    "promises-aplus-tests": "2.1.2"
   }
 }
