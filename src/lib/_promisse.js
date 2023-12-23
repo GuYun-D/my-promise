@@ -107,6 +107,18 @@ class _MyPromisse {
   catch(errorCB) {
     this.then(null, errorCB);
   }
+
+  static resolve(value) {
+    return new _MyPromisse((resolve, reject) => {
+      resolve(value);
+    });
+  }
+
+  static reject(error) {
+    return new _MyPromisse((resolve, reject) => {
+      reject(error);
+    });
+  }
 }
 
 module.exports = {
