@@ -180,7 +180,7 @@ class _MyPromisse {
       }
     }
 
-    return new Promise((resolve, reject) => {
+    return new _MyPromisse((resolve, reject) => {
       if (promiseArr.length === 0) {
         resolve([]);
       }
@@ -197,6 +197,18 @@ class _MyPromisse {
           );
         } else {
           formatResArr("fulfilled", promise, index, resolve);
+        }
+      });
+    });
+  }
+
+  static race(promiseArr) {
+    return new _MyPromisse((resolve, reject) => {
+      promiseArr.forEach((promise) => {
+        if (isPromise(promise)) {
+          promise.then(resolve, reject);
+        } else {
+          resolve(promise);
         }
       });
     });
