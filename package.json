@@ -9,7 +9,8 @@
     "all": "node ./src/test/promise.all.test.js",
     "allS": "node ./src/test/promise.allSetttled.test.js",
     "race": "node ./src/test/promise.race.test.js",
-    "fy": "node ./src/test/promise.finally.test.js"
+    "fy": "node ./src/test/promise.finally.test.js",
+    "py": "node ./src/test/promisify.test.js"
   },
   "devDependencies": {
     "promises-aplus-tests": "2.1.2"
