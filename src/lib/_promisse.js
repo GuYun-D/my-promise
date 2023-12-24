@@ -109,6 +109,19 @@ class _MyPromisse {
     this.then(null, errorCB);
   }
 
+  finally(finallyCB) {
+    return this.then(
+      (value) => {
+        return _MyPromisse.resolve(finallyCB()).then(() => value);
+      },
+      (reason) => {
+        return _MyPromisse.resolve(finallyCB()).then(() => {
+          throw reason;
+        });
+      }
+    );
+  }
+
   static resolve(value) {
     return new _MyPromisse((resolve, reject) => {
       resolve(value);

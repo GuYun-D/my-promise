@@ -8,7 +8,8 @@
     "test": "promises-aplus-tests ./src/test/promise.test.js",
     "all": "node ./src/test/promise.all.test.js",
     "allS": "node ./src/test/promise.allSetttled.test.js",
-    "race": "node ./src/test/promise.race.test.js"
+    "race": "node ./src/test/promise.race.test.js",
+    "fy": "node ./src/test/promise.finally.test.js"
   },
   "devDependencies": {
     "promises-aplus-tests": "2.1.2"
