@@ -1,4 +1,4 @@
-const { MyPromisse } = require("../src/lib/index");
+const { MyPromisse } = require("../lib/index");
 
 MyPromisse.defer = MyPromisse.deferred = function () {
   let deferred = {};

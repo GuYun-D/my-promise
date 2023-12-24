@@ -1,4 +1,4 @@
-const { MyPromisse } = require("../src/lib/index");
+const { MyPromisse } = require("../lib/index");
 
 const p1 = new MyPromisse((resolve, reject) => {
   resolve("success");

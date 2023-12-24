@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { MyPromisse } = require("../src/lib/index");
+const { MyPromisse } = require("../lib/index");
 
 function readFile(path, delay) {
   return new MyPromisse((resolve, reject) => {
