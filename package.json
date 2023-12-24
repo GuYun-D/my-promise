@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon ./src/index.js",
     "test": "promises-aplus-tests ./src/promise.test.js",
-    "all": "node ./src/promise.all.test.js"
+    "all": "node ./src/promise.all.test.js",
+    "allS": "node ./src/promise.allSetttled.test.js"
   },
   "devDependencies": {
     "promises-aplus-tests": "2.1.2"

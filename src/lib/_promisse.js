@@ -1,5 +1,6 @@
 const { PENDING, FULLFILLED, REJECT } = require("./_status");
 const { _resolvePromise } = require("./_resolvePromise");
+const { isIterabe, isPromise } = require("./_utils");
 
 class _MyPromisse {
   constructor(executor) {
@@ -123,14 +124,6 @@ class _MyPromisse {
   static all(promiseArr) {
     let resArr = [];
     let count = 0;
-    function isPromise(x) {
-      if ((typeof x === "object" && x !== null) || typeof x === "function") {
-        let then = x.then;
-        return typeof then === "function";
-      }
-
-      return false;
-    }
 
     function formatRes(value, index, resolve) {
       resArr[index] = value;
@@ -147,6 +140,63 @@ class _MyPromisse {
           }, reject);
         } else {
           formatRes(promise, index, resolve);
+        }
+      });
+    });
+  }
+
+  static allSettled(promiseArr) {
+    const resArr = [];
+    let count = 0;
+
+    if (!isIterabe(promiseArr)) {
+      throw new TypeError(
+        `${promiseArr} is not iterable (cannot read property Symbol(Symbol.iterator))`
+      );
+    }
+
+    function formatResArr(status, value, index, resolve) {
+      switch (status) {
+        case "fulfilled":
+          resArr[index] = {
+            status,
+            value,
+          };
+          break;
+
+        case "rejected":
+          resArr[index] = {
+            status,
+            reason: value,
+          };
+          break;
+
+        default:
+          break;
+      }
+
+      if (++count === promiseArr.length) {
+        resolve(resArr);
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      if (promiseArr.length === 0) {
+        resolve([]);
+      }
+
+      promiseArr.map((promise, index) => {
+        if (isPromise(promise)) {
+          promise.then(
+            (value) => {
+              formatResArr("fulfilled", value, index, resolve);
+            },
+            (reason) => {
+              formatResArr("rejected", reason, index, resolve);
+            }
+          );
+        } else {
+          formatResArr("fulfilled", promise, index, resolve);
         }
       });
     });
