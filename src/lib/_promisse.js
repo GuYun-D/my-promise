@@ -119,6 +119,38 @@ class _MyPromisse {
       reject(error);
     });
   }
+
+  static all(promiseArr) {
+    let resArr = [];
+    let count = 0;
+    function isPromise(x) {
+      if ((typeof x === "object" && x !== null) || typeof x === "function") {
+        let then = x.then;
+        return typeof then === "function";
+      }
+
+      return false;
+    }
+
+    function formatRes(value, index, resolve) {
+      resArr[index] = value;
+      if (++count === promiseArr.length) {
+        resolve(resArr);
+      }
+    }
+
+    return new _MyPromisse((resolve, reject) => {
+      promiseArr.map((promise, index) => {
+        if (isPromise(promise)) {
+          promise.then((res) => {
+            formatRes(res, index, resolve);
+          }, reject);
+        } else {
+          formatRes(promise, index, resolve);
+        }
+      });
+    });
+  }
 }
 
 module.exports = {
